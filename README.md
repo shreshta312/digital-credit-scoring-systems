@@ -1,5 +1,7 @@
 # CreditLend - Digital Credit Scoring System for Rural Finance
+## Live Demo
 
+[Click here to view the deployed app]https://digital-credit-scoring-systems-dwqzpi3ofbfpmivfr94tcr.streamlit.app/
 CreditLend is a machine learning based digital credit scoring system designed for rural borrowers such as farmers, shopkeepers, dairy workers, daily wage workers, and small business owners.
 
 The project predicts a borrower's loan repayment probability using demographic, financial, agricultural, business, and digital transaction features. The result is displayed through an interactive Streamlit dashboard with repayment probability, credit score, risk category, feature importance, and dataset-level insights.
