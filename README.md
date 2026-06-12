@@ -1,84 +1,301 @@
-# DIGITAL-CREDIT-SCORING
-This repository contains a machine learning-powered platform for rural credit risk assessment and explainable credit scoring. The project is designed to improve financial inclusion for smallholder farmers and rural borrowers who often lack formal credit profiles.
+# CreditLend - Digital Credit Scoring System for Rural Finance
 
-Rural Credit Scoring Dashboard – Trustworthy AI for Financial Inclusion
-📢 Project Overview
-This repository presents an end-to-end, machine learning-powered dashboard for rural credit risk assessment. The solution applies Trustworthy AI principles—fairness, transparency, explainability, robustness, and privacy—to predict repayment probability, assign a credit score, and explain lending risk for rural borrowers, especially farmers. Our goal is to help financial institutions make ethical, data-driven credit decisions that support inclusion for communities underserved by traditional methods.
+CreditLend is a machine learning based digital credit scoring system designed for rural borrowers such as farmers, shopkeepers, dairy workers, daily wage workers, and small business owners.
 
-📦 Repository Structure
-App.py, app1.py — Main Streamlit dashboard/application files. Run either to launch the user interface.
+The project predicts a borrower's loan repayment probability using demographic, financial, agricultural, business, and digital transaction features. The result is displayed through an interactive Streamlit dashboard with repayment probability, credit score, risk category, feature importance, and dataset-level insights.
 
-rural_credit_dataset_mixed.csv — Core dataset simulating real borrower profiles (demographics, agriculture, finance, digital behaviour).
+---
 
-xgb_model.pkl — Pre-trained XGBoost model for loan repayment prediction.
+## Problem Statement
 
-scaler.pkl, column_transformer.pkl — Data transformation objects (scaling and encoding features for consistency).
+In rural finance, many borrowers may not have a strong formal credit history. Traditional credit scoring systems often depend heavily on past banking records, credit cards, and formal loan history. This can make it difficult for rural borrowers to access fair credit evaluation.
 
-graphs_paper1.py, newplot.jpg — Visualisation code and sample output for use in reports or presentations.
+This project attempts to build an alternative credit scoring prototype using machine learning. It considers borrower information such as income, occupation, previous defaults, agricultural details, business activity, and digital transaction behavior to estimate repayment probability.
 
-Untitled.ipynb — Jupyter notebook for full exploratory data analysis, feature engineering, and model training.
+---
 
-image.jpeg, image.jpg — Dashboard screenshots and demo visuals for documentation/README use.
+## Project Objective
 
-🚀 How to Deploy and Use the Dashboard
-Clone the Repository
+The main objective of this project is to:
 
-Install Required Python Packages
+* Predict loan repayment probability for rural borrowers
+* Generate a credit score between 300 and 900
+* Classify borrowers into low, medium, or high risk categories
+* Show the top factors influencing the prediction
+* Provide a simple and interactive dashboard for credit evaluation
 
-You’ll need: streamlit, pandas, scikit-learn, xgboost, matplotlib
+---
 
-bash
-pip install streamlit pandas scikit-learn xgboost matplotlib
-Optionally, add a requirements.txt file for quick environment setup.
+## Features Used
 
-Run the Dashboard
+The model uses multiple categories of borrower information.
 
-bash
-streamlit run App.py
-Visit the local URL provided (usually http://localhost:8501).
+### Demographic Features
 
-Enter sample borrower details in the sidebar to receive a credit score, repayment probability, and risk classification instantly.
+* Age
+* Gender
+* Education level
+* State
+* Family members
+* Dependents
 
-Analyze which factors influence the result via the feature importance graph.
+### Financial Features
 
-Explore and Extend
+* Annual income
+* Requested loan amount
+* Previous loans taken
+* Previous default history
 
-Use the provided notebook (Untitled.ipynb) for custom data exploration, retraining, or model tweaking.
+### Digital Behavior Features
 
-Replace or retrain models (xgb_model.pkl) to update prediction logic as needed.
+* Monthly digital transactions
 
-Study included scripts and images for adapting the dashboard for your own presentation or paper.
+### Agricultural Features
 
-💡 Key Features
-Trustworthy AI: Demonstrates clear, interpretable risk assessment based on ethical AI standards.
+Used when the borrower is a farmer:
 
-Feature Importance: Users see why the model assigns a score—enabling transparency and trust.
+* Land size
+* Crop type
+* Rainfall
+* Irrigation type
+* Soil quality index
+* Annual crop yield
 
-Rural Focus: Accounts for agricultural context, digital behaviour, and economic diversity in lending risk.
+### Business Features
 
-Ready to Use: Pre-trained models and full dataset included—no wait time to test or demo.
+Used for non-farmer borrowers:
 
-👩‍💻 Example Use Case
-Input a Maharashtra farmer’s details, land size, income, crop, loan requested, and see output: repayment probability, credit score, and risk category.
+* Monthly shop revenue
+* Business expenses
+* Inventory value
 
-The dashboard’s graph will highlight the most influential variables—e.g., land size and annual income.
+---
 
-Use for research demos, bank testing, or comparative studies in financial AI.
+## Machine Learning Workflow
 
-📈 Extending the Project
-Add new models to App.py or retrain using the Jupyter notebook.
+The project follows this workflow:
 
-Expand the dataset with real-world data for robust credit scoring.
+```text
+Dataset
+   ↓
+Data preprocessing
+   ↓
+Categorical encoding using ColumnTransformer
+   ↓
+Feature scaling using StandardScaler
+   ↓
+XGBoost classification model
+   ↓
+Repayment probability prediction
+   ↓
+Credit score and risk category generation
+   ↓
+Streamlit dashboard
+```
 
-Integrate live Monte Carlo scenarios or SHAP explainability modules.
+---
 
-<img width="568" height="801" alt="Screenshot 2025-11-12 234117" src="https://github.com/user-attachments/assets/257ea536-0eea-4692-b3d1-7dce02604e19" />
+## Model Used
 
+The main prediction model used in this project is:
 
-<img width="598" height="797" alt="Screenshot 2025-11-12 234309" src="https://github.com/user-attachments/assets/633b3234-ca51-49dc-b4c6-8aedf6d59f16" />
+```text
+XGBoost Classifier
+```
 
+XGBoost is used because it performs well on structured/tabular datasets and can capture non-linear relationships between borrower features and repayment behavior.
 
-<img width="563" height="154" alt="Screenshot 2025-11-12 234422" src="https://github.com/user-attachments/assets/654f33ff-0dcc-4f7f-9bcb-feb775c0baef" />
+The trained model files are stored inside the `models/` folder:
 
+```text
+models/
+├── xgb_model.pkl
+├── column_transformer.pkl
+└── scaler.pkl
+```
 
-<img width="544" height="403" alt="Screenshot 2025-11-12 234509" src="https://github.com/user-attachments/assets/2cc914a8-5a89-41b0-8b91-b35bab12a193" />
+---
+
+## Dashboard Features
+
+The Streamlit dashboard provides:
+
+* Borrower information input form
+* Farmer-specific and non-farmer-specific input sections
+* Loan amount input
+* Repayment probability prediction
+* Credit score generation
+* Risk category classification
+* Feature importance visualization
+* Summary credit report
+* State-wise average repayment rate chart
+
+---
+
+## Project Structure
+
+```text
+digital-credit-scoring-systems/
+│
+├── app.py
+├── README.md
+├── requirements.txt
+│
+├── data/
+│   └── rural_credit_dataset_mixed.csv
+│
+├── models/
+│   ├── xgb_model.pkl
+│   ├── column_transformer.pkl
+│   └── scaler.pkl
+│
+├── src/
+│   ├── train_model.py
+│   └── graphs_paper1.py
+│
+├── notebooks/
+│   └── Untitled.ipynb
+│
+├── outputs/
+│   └── newplot (1).png
+│
+└── screenshots/
+    ├── input_form.png
+    ├── credit_report.png
+    └── feature_importance.png
+```
+
+---
+
+## Screenshots
+
+### Borrower Input Form
+
+![Borrower Input Form](screenshots/input_form.png)
+
+### Credit Evaluation Report
+
+![Credit Evaluation Report](screenshots/credit_report.png)
+
+### Feature Importance and Dataset Insights
+
+![Feature Importance](screenshots/feature_importance.png)
+
+---
+
+## Installation and Setup
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/shreshta312/digital-credit-scoring-systems.git
+cd digital-credit-scoring-systems
+```
+
+### 2. Install required packages
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+### 3. Train or regenerate model files
+
+```bash
+python src/train_model.py
+```
+
+This creates the required model files inside the `models/` folder.
+
+### 4. Run the Streamlit app
+
+```bash
+python -m streamlit run app.py
+```
+
+Then open the local URL shown in the terminal:
+
+```text
+http://localhost:8501
+```
+
+---
+
+## Requirements
+
+The project uses the following major Python libraries:
+
+```text
+streamlit
+pandas
+numpy
+scikit-learn
+xgboost
+joblib
+plotly
+streamlit-extras
+```
+
+---
+
+## Output Explanation
+
+The dashboard generates the following results:
+
+### Repayment Probability
+
+The predicted probability that the borrower is likely to repay the loan.
+
+### Credit Score
+
+A score between 300 and 900 generated using the repayment probability.
+
+```text
+Credit Score = 300 + Repayment Probability × 600
+```
+
+### Risk Category
+
+Borrowers are classified into:
+
+```text
+Low Risk
+Medium Risk
+High Risk
+```
+
+### Feature Importance
+
+The dashboard displays the most important factors that influenced the model prediction.
+
+---
+
+## Limitations
+
+This project is an academic prototype and should not be used for real loan approval decisions without proper validation.
+
+Some limitations include:
+
+* The dataset may not represent real-world banking data fully
+* The model has not been validated on actual financial institution data
+* Credit risk decisions require fairness, explainability, and regulatory checks
+* More real-world borrower behavior data would improve reliability
+
+---
+
+## Future Improvements
+
+Possible future improvements include:
+
+* Add SHAP-based explainability
+* Improve fairness analysis across gender, state, and occupation
+* Add borrower report download as PDF
+* Add authentication for bank/admin users
+* Deploy the app using Streamlit Cloud
+* Use real-world financial datasets for validation
+* Add database support for storing borrower evaluations
+
+---
+
+## Conclusion
+
+CreditLend demonstrates how machine learning can be used to build an alternative digital credit scoring system for rural finance. By using demographic, financial, agricultural, business, and digital transaction features, the system provides a prototype for estimating borrower repayment probability and presenting it through an easy-to-use dashboard.
